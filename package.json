@@ -1,6 +1,28 @@
 {
   "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3"
-  }
+  },
+  "name": "sql-employee-tracker",
+  "version": "1.0.0",
+  "main": "apps.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malvinaH/Employee-tracker-SQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malvinaH/Employee-tracker-SQL/issues"
+  },
+  "homepage": "https://github.com/malvinaH/Employee-tracker-SQL#readme",
+  "description": ""
 }
