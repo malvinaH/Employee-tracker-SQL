@@ -273,63 +273,52 @@ const updateRole = () => {
                 [
                     {
                         type: 'list',
-                        name: 'role',
-                        message: 'Which role do you want to update?',
+                        name: 'employeeId',
+                        message: 'Which emplopyee do you want to update?',
                         choices: employees
                     }
                 ]
             )
-                .then(response => {
-                    console.log(response);
+                .then(({employeeId}) => {
+                    console.log(employeeId);
                     connection.promise().query(
                         "SELECT id,title FROM role;"
-                        ).then((data)=> {
+                        ).then(([data])=> {
+                            console.log(data);
                             let roles = data.map(({
                                 id,
-                                name
+                                title
 
                             }) => ({
                                 value: id,
-                                name: name
+                                name: title
                             }));
-
-                        })
-                    inquirer.prompt(
-                        [{
-                            type: 'list',
-                            name: 'title',
-                            message: "Choose a role",
-                            choices: role
-                        },
-                        {
-                            type: 'input',
-                            name: 'salary',
-                            message: 'Enter your salary (Required)',
-                            validate: salary => {
-                                if (salary) {
-                                    return true;
-                                } else {
-                                    console.log('Please enter your salary!');
-                                    return false;
-                                }
-                            }
-                        }]
-                    )
-                        .then(({ title, salary }) => {
-                            const query = connection.query(
-                                'UPDATE role SET title = ?, salary = ? WHERE id = ?',
-                                [
-                                    title,
-                                    salary
-                                    ,
-                                    role.role
-                                ],
-                                function (err, res) {
-                                    if (err) throw err;
-                                }
+                            console.log(roles);
+                            inquirer.prompt(
+                                [{
+                                    type: 'list',
+                                    name: 'roleId',
+                                    message: "Choose a role",
+                                    choices: roles
+                                }]
                             )
-                        })
-                        .then(() => userInput())
+                                .then(({ roleId }) => {
+                                    console.log(roleId, employeeId);
+                                    connection.query(
+                                        'UPDATE employee SET role_id = ? WHERE id = ?',
+                                        [
+                                            roleId,
+                                            employeeId
+                                        ],
+                                        function (err, res) {
+                                            if (err) throw err;
+                                            console.log(res);
+                                        }
+
+                                    )
+                                })
+                                .then(() => userInput())
+                            })
                 })
         });
 
